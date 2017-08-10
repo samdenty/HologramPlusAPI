@@ -1,0 +1,48 @@
+USAGE:
+
+REQUIRED:
+	?key  = Hologram API Key
+	?id   = Hologram device ID 
+
+OPTIONAL:
+	?body 		= The message to be sent to the device (Messages will be split up if over 160 characters, unless overflow parameter set)
+					Default:	[TIME] Message delivered
+
+	?from 		= The number to send the message from
+					Default = 7367125
+							  TESTING
+
+	?timezone	= The PHP timezone to use
+					Default: 	Europe/London
+
+	?overflow	= How to handle messages exceeding 160 characters
+						multiple	| split messages into multiple SMSs
+						trim		| trim end of messages
+						fail		| don't send message if it exceeds 160 characters
+					Default: multiple
+
+    ?title		= Prefix message with a title, format=[H:M] TITLE:
+    				EXAMPLE: '[12:30] Example title: '
+    				Default: none
+
+    ?footer		= Send a separate SMS after the content SMS's (eg. for a link / message separator SMS etc.)
+
+    ?sandbox	= Prevents the message from being sent, (use for API testing purposes)
+
+BODY VARIABLES (case sensitive):
+	{$time$}	The current time, format=H:M
+				EXAMPLE: '12:30'
+
+	{$time2$}	The current time, format=H:M:S
+					EXAMPLE: '12:30:05'
+
+	{$pre$}		Message time prefix, format=[H:M:S]:
+					EXAMPLE: '[12:30]: '
+
+	{$ip$}		IP Address 
+
+	{$nl$} 		Insert newline
+
+	{$nl2$} 	Insert two newlines
+
+	{$nl3$} 	Insert three newlines
