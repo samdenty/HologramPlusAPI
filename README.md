@@ -27,14 +27,13 @@ Here are some examples of what you can do:
 <br>
 
     hologram.php?key=KEY&id=device&body=Hello{$nl$}World
-> Hello
+> Hello<br>
 > World
 
 <br>
 
     hologram.php?key=KEY&id=device&body={$pre$}Example title{$nl2$}Lorem ipsum
-> [12:30]: Example title
-> 
+> [12:30]: Example title<br><br>
 > Lorem ipsum
 
 ### Formatting
@@ -46,8 +45,7 @@ Here are some examples of what you can do:
 
     hologram.php?key=KEY&id=device&title=Notification{$nl$}&body=Lorem ipsum
 
-> \[12:30\]: Notification:
-> 
+> \[12:30\]: Notification:<br>
 > Lorem ipsum
 
 ## SMS configuration
@@ -61,7 +59,7 @@ By default messages are split into multiple SMS, though this can easily be chang
 ### Timezone
 By default `HologramPlusAPI` uses the `Europe/London` timezone, but this can easily be changed by specifying the `?timezone` parameter. Refer to the [timezone lists here](http://php.net/manual/en/timezones.php)
 
-    timezone=America/New_York     Change the {$time$} variables to the New York timezones.
+    timezone=America/New_York     Change the {$time$} variables to the New York timezone.
 
 ### Footer
 Normally only one message is sent (aka the title+body). You can specify a message to be sent after all the other messages are sent by using the `?footer` parameter. Example:
