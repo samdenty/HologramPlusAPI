@@ -32,9 +32,12 @@ if (isset($_GET['key']) && isset($_GET['id'])) {
 				$body = "[" . date("H:i") . "] " . $_GET['title'] . ": " . $_GET['body'];
 		}
 		// Evaluate body variables
-			$find 	 = array( "{\$time\$}"	, "{\$time2\$}"	, "{\$pre\$}"				, "{\$ip\$}"			 , "{\$nl\$}" , "{\$nl2\$}" , "{\$nl3\$}");
-			$replace = array( date("H:i")	, date("H:i:s")	, "[" . date("H:i") . "]: "	, $_SERVER['REMOTE_ADDR'], "\\n"		  , "\\n\\n"		, "\n\n\n");
+			$find 	 = array( "{\$time\$}"	, "{\$time2\$}"	, "{\$pre\$}"				, "{\$ip\$}"			 , "{\$nl\$}" , "{\$nl2\$}" , "{\$nl3\$}", "`");
+			$replace = array( date("H:i")	, date("H:i:s")	, "[" . date("H:i") . "]: "	, $_SERVER['REMOTE_ADDR'], "\\n"		  , "\\n\\n"		, "\n\n\n", "'");
 			$body 	 = str_replace($find, $replace, $body);
+
+		// Remove all special characters (that are not supported in Hologram's SMS)
+			$body = preg_replace("/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!# \"%&\\'^|()*,.?+-\/\[\]{};:<=>¡¿_@\$£¥\\\u00A4èéùìòÇØøÆæßÉÅåÄÖÑÜ§äöñüà\\\u0394\\\u03A6\\\u0393\\\u039B\\\u03A9\\\u03A0\\\u03A8\\\u03A3\\\u0398\\\u039E\n\r]/", "", $body);
 
 		// If the message is more the 160 characters (Max SMS length)
 		if (strlen($body) > 160) {
@@ -92,7 +95,9 @@ if (isset($_GET['key']) && isset($_GET['id'])) {
 		}
 		// If the footer parameter was specified then send another SMS with it's value
 		if (isset($_GET['footer'])) {
-			$data = array("deviceid" => $id, "fromnumber" => $from, "body" => $_GET['footer']);
+			// Remove all special characters (that are not supported in Hologram's SMS)
+			$footer = preg_replace("[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!# \"%&\\'^|()*,.?+-\/;:<=>¡¿_@$£¥\\u00A4èéùìòÇØøÆæßÉÅåÄÖÑÜ§äöñüà\u0394\u03A6 \u0393\u039B\u03A9\u03A0\u03A8\u03A3\u0398\u039E\\n\\r]", "", $_GET['footer']);
+			$data = array("deviceid" => $id, "fromnumber" => $from, "body" => $footer);
 			$data_string = json_encode($data);
 			$data_string = str_replace("\\n", 'n', $data_string);
 			$ch = curl_init('https://dashboard.hologram.io/api/1/sms/incoming?apikey=' . $key);
