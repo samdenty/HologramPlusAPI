@@ -5,6 +5,11 @@ if (isset($_GET['key']) && isset($_GET['id'])) {
 	$key = $_GET['key'];
 	$id = $_GET['id'];
 
+	/* If cloudflare is being used, then use the Cloudflare provided Client IP */
+	if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+	  $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+	}
+
 	if (isset($_GET['timezone']))
 		date_default_timezone_set($_GET['timezone']);
 	else
