@@ -7,6 +7,7 @@ This lightweight project enhances the [`Hologram.io`](https://hologram.io) Rest 
 - Automatically send long SMS as multiple 160 character messages -  see [overflow](#overflow)
 - SMS variables (handled server side) - see [variables](#variables)
 - Easy SMS formatting - see [formatting](#formatting) 
+- SMS escaping and character exclusion, see [Valid SMS characters](https://stackoverflow.com/questions/5186702/looking-for-a-list-of-valid-characters-that-can-be-sent-in-sms-text-messages)
 
 NOTE: You can use the demo server over at [`http(s)://s.samdd.me/hologram`](https://s.samdd.me/hologram) if you don't want to host your own instance.
 
