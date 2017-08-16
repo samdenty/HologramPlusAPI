@@ -28,13 +28,22 @@ if (isset($_GET['key']) && isset($_GET['id'])) {
 		$overflow = "multiple"; // Default message split type
 
 	// Extract the Body message from URL, if it doesn't exist use default
-	if (isset($_GET['body'])){
+	if (isset($_GET['body']) || isset($_GET['title'])){
 		// Prefix the body message with Title value (if it's been specified)
 		if (isset($_GET['title'])) {
-			if (substr($_GET['title'], -6) == "{\$nl\$}")
-				$body = "[" . date("H:i") . "] " . substr($_GET['title'], 0, -6) . ":{\$nl\$}" . $_GET['body'];
-			else
-				$body = "[" . date("H:i") . "] " . $_GET['title'] . ": " . $_GET['body'];
+			if(isset($_GET['body'])) {
+				if (substr($_GET['title'], -6) == "{\$nl\$}")
+					$body = "[" . date("H:i") . "] " . substr($_GET['title'], 0, -6) . ":{\$nl\$}" . $_GET['body'];
+				else
+					$body = "[" . date("H:i") . "] " . $_GET['title'] . ": " . $_GET['body'];
+			} else {
+				if (substr($_GET['title'], -6) == "{\$nl\$}")
+					$body = "[" . date("H:i") . "] " . substr($_GET['title'], 0, -6) . ":{\$nl\$}";
+				else
+					$body = "[" . date("H:i") . "] " . $_GET['title'];
+			}
+		} else {
+			$body = $_GET['body'];
 		}
 		// Evaluate body variables
 			$find 	 = array( "{\$time\$}"	, "{\$time2\$}"	, "{\$pre\$}"				, "{\$ip\$}"			 , "{\$nl\$}" , "{\$nl2\$}" , "{\$nl3\$}", "`");
@@ -140,7 +149,7 @@ if (isset($_GET['key']) && isset($_GET['id'])) {
 	if ($result_array[0]["success"] == true) {
 		$responce = array("success" => true, "error" => 0, "info" => "Message delivered! [" . $times . " sent]", "message" => $body);
 	} else {
-		$responce = array("success" => false, "error" => 4, "info" => $result_array["error"]);
+		$responce = array("success" => false, "error" => 4, "info" => $result_array["error"], "message" => $body);
 	}
 	echo str_replace("\\n", 'n', json_encode($responce));
 
