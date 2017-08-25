@@ -13,38 +13,38 @@ NOTE: You can use the demo server over at [`http(s)://s.samdd.me/hologram`](http
 
 Here are some examples of what you can do:
 ### Basic hello world
-    hologram.php?key=KEY&id=device
+    hologram.php?key=KEY|DEVICEID
 > [12:30] Hello world! (No message specified)
 
 ### Variables
-    hologram.php?key=KEY&id=device&body=IP={$IP$}
+    hologram.php?key=KEY|DEVICEID&body=IP={$IP$}
 > IP=34.168.56.2
 
 <br>
 
-    hologram.php?key=KEY&id=device&body=The time is {$time$}
+    hologram.php?key=KEY|DEVICEID&body=The time is {$time$}
 > The time is 12:30
 
 <br>
 
-    hologram.php?key=KEY&id=device&body=Hello{$nl$}World
+    hologram.php?key=KEY|DEVICEID&body=Hello{$nl$}World
 > Hello<br>
 > World
 
 <br>
 
-    hologram.php?key=KEY&id=device&body={$pre$}Example title{$nl2$}Lorem ipsum
+    hologram.php?key=KEY|DEVICEID&body={$pre$}Example title{$nl2$}Lorem ipsum
 > [12:30]: Example title<br><br>
 > Lorem ipsum
 
 ### Formatting
 
-    hologram.php?key=KEY&id=device&title=Test&body=Hello world
+    hologram.php?key=KEY|DEVICEID&title=Test&body=Hello world
 > [12:30]: Test: Hello world
 
 <br>
 
-    hologram.php?key=KEY&id=device&title=Notification{$nl$}&body=Lorem ipsum
+    hologram.php?key=KEY|DEVICEID&title=Notification{$nl$}&body=Lorem ipsum
 
 > \[12:30\]: Notification:<br>
 > Lorem ipsum
@@ -71,18 +71,21 @@ Normally only one message is sent (aka the title+body). You can specify a messag
 If you want to test out your messages without actually sending them, add the `&sandbox` parameter to the URL.
 
 ## Example URLs
-    https://s.samdd.me/hologram?key=KEY&id=DEVICE
-    https://s.samdd.me/hologram?key=KEY&id=DEVICE&title=Hello{$nl$}&body=World
-	https://s.samdd.me/hologram?key=KEY&id=DEVICE&overflow=trim&body=REALLY LONG MESSAGE...
-	https://s.samdd.me/hologram?key=KEY&id=DEVICE&timezone=America/New_York&body={$time2$}
-	https://s.samdd.me/hologram?key=KEY&id=DEVICE&body=Sender IP={$ip$}
+    https://s.samdd.me/hologram?key=KEY&id=DEVICEID
+    https://s.samdd.me/hologram?key=KEY|DEVICEID
+    https://s.samdd.me/hologram?key=KEY&id=DEVICEID&title=Hello{$nl$}&body=World
+	https://s.samdd.me/hologram?key=KEY|DEVICEID&overflow=trim&body=REALLY LONG MESSAGE...
+	https://s.samdd.me/hologram?key=KEY&id=DEVICEID&timezone=America/New_York&body={$time2$}
+	https://s.samdd.me/hologram?key=KEY|DEVICEID&body=Sender IP={$ip$}
 
 ## Full Usage documentation:
 	USAGE:
 
 	REQUIRED:
-		?key  = Hologram API Key
-		?id   = Hologram device ID 
+        ?key  = Hologram API Key
+            ?KEY=APIKEY
+            ?KEY=APIKEY|DEVICEID
+        ?id   = Hologram device ID (Can be specified in the key parameter after adding a |)
 
 	OPTIONAL:
 		?body 		= The message to be sent to the device (Messages will be split up if over 160 characters, unless overflow parameter set)

@@ -1,11 +1,19 @@
 <?php
 header('Content-Type: application/json');
 
-if (isset($_GET['key']) && isset($_GET['id'])) {
-	$key = $_GET['key'];
-	$id = $_GET['id'];
+if (isset($_GET['key'])) {
 
-	/* If cloudflare is being used, then use the Cloudflare provided Client IP */
+	// Check if ID parameter is sent, else explode the key string to extract ID
+	if (isset($_GET['id'])) {
+		$key = $_GET['key'];
+		$id = $_GET['id'];
+	} else {
+		$exp = explode("|", $_GET['key'], 2);
+		$key = $exp[0];
+		$id = $exp[1];
+	}
+
+	// If cloudflare is being used, then use the Cloudflare provided Client IP
 	if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
 	  $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
 	}

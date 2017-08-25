@@ -2,7 +2,9 @@ USAGE:
 
 REQUIRED:
 	?key  = Hologram API Key
-	?id   = Hologram device ID 
+		?KEY=APIKEY
+		?KEY=APIKEY|DEVICEID
+	?id   = Hologram device ID (Can be specified in the key parameter after adding a |)
 
 OPTIONAL:
 	?body 		= The message to be sent to the device (Messages will be split up if over 160 characters, unless overflow parameter set)
