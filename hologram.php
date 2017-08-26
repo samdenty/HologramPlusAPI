@@ -1,7 +1,7 @@
 <?php
-header('Content-Type: application/json');
 
 if (isset($_GET['key'])) {
+	header('Content-Type: application/json');
 
 	// Check if ID parameter is sent, else explode the key string to extract ID
 	if (isset($_GET['id'])) {
@@ -161,9 +161,21 @@ if (isset($_GET['key'])) {
 	}
 	echo str_replace("\\n", 'n', json_encode($responce));
 
-// Callback if API key or ID not specified
-} else {
+// Callback if no parameter specified
+} else if (!empty($_GET)) {
+	header('Content-Type: application/json');
+	// Callback if API key or ID not specified (but a parameter was sent)
 	$responce = array("success" => false, "error" => 1, "info" => "No API key or device ID specified!");
 	echo json_encode($responce);
 }
 ?>
+<?php if (empty($_GET)): ?>
+<form method="get">
+	<input type="text" name="key" placeholder="Hologram API Key">
+	<input type="number" name="id" placeholder="Device ID">
+	<input type="number" name="from" placeholder="From number"><br>
+	<input type="text" name="title" placeholder="Message title">
+	<input type="field" name="body" placeholder="Message body"><br><br>
+	<input type="submit">
+</form>
+<?php endif; ?>
