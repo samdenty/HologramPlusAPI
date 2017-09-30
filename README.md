@@ -119,7 +119,7 @@ If you want to test out your messages without actually sending them, add the `&s
 		{$time2$}	The current time, format=H:M:S
 						EXAMPLE: '12:30:05'
 
-		{$pre$}		Message time prefix, format=[H:M:S]:
+		{$pre$}		Message time prefix, format=[H:M]:
 						EXAMPLE: '[12:30]: '
 
 		{$ip$}		IP Address 
