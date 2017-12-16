@@ -129,3 +129,5 @@ If you want to test out your messages without actually sending them, add the `&s
 		{$nl2$} 	Insert two newlines
 
 		{$nl3$} 	Insert three newlines
+		
+[![Analytics](https://ga-beacon.appspot.com/UA-85426772-5/HologramPlusAPI/?pixel)](https://github.com/igrigorik/ga-beacon)
